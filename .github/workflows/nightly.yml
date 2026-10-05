@@ -1,0 +1,34 @@
+name: Build GBA SD Card Info nightly
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+      - name: Build and check
+        id: build
+        run: |
+          set -euo pipefail
+          commit=$(git rev-parse --short=8 HEAD)
+          docker build --pull --progress=plain --target exporter \
+            --build-arg "BUILD_COMMIT=$commit" \
+            -t sd-info-build . 2>&1 | tee build.log
+          container=$(docker create sd-info-build)
+          trap 'docker rm "$container" >/dev/null' EXIT
+          mkdir -p out
+          docker cp "$container:/artifacts/gba-sd-card-info.gba" out/
+          printf 'commit=%s\n' "$commit" >> "$GITHUB_OUTPUT"
+      - name: Upload build
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: gba-sd-card-info-${{ steps.build.outputs.commit }}
+          path: out/gba-sd-card-info.gba
+          if-no-files-found: error
+          retention-days: 14

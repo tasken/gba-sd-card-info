@@ -1,0 +1,60 @@
+# Third-party notices
+
+## SuperFW
+
+[SuperFW](https://github.com/davidgfnet/superfw) by David Guillen Fandos.
+Copyright (C) 2024. GPL-3.0-or-later; full license in `LICENSE`.
+
+SD transport, initialization, cartridge mapping and CRC code are adapted from
+revision `1abd49bc18570956369283cbb724fbcf13e9a803` in `src/probe.c`,
+`src/platform.c`, `src/supercard_io.S`, `src/data.c` and `src/registers.c`.
+Unmodified v0.21 driver files in `src/superfw/` provide TXT export transport.
+Original source notices are retained.
+
+## FatFs
+
+FatFs R0.16 by ChaN is vendored in `src/fatfs/` from the
+[official archive](https://elm-chan.org/fsw/ff/arc/ff16.zip).
+`ff.c`, `ff.h` and `diskio.h` are unmodified; `ffconf.h` configures the app.
+
+Copyright (C) 2025, ChaN, all right reserved.
+
+FatFs module is an open source software. Redistribution and use of FatFs in
+source and binary forms, with or without modification, are permitted provided
+that the following condition is met:
+
+1. Redistributions of source code must retain the above copyright notice,
+   this condition and the following disclaimer.
+
+This software is provided by the copyright holder and contributors "AS IS"
+and any warranties related to this software are DISCLAIMED.
+The copyright owner or contributors be NOT LIABLE for any damages caused
+by use of this software.
+
+## CID test samples
+
+CID samples in `tests/test_sd.c` come from
+[maxkueng/sdcard-cid-decode](https://github.com/maxkueng/sdcard-cid-decode).
+Modified test variants are synthetic.
+
+MIT License
+
+Copyright (c) 2021-2026 Max Kueng
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.

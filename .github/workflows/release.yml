@@ -1,0 +1,44 @@
+name: Build GBA SD Card Info release
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+      - name: Build and check release
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name || github.ref_name }}
+        run: |
+          set -euo pipefail
+          commit=$(git rev-parse --short=8 HEAD)
+          docker build --pull --progress=plain --target exporter \
+            --build-arg "BUILD_COMMIT=$commit" --build-arg "BUILD_TAG=$RELEASE_TAG" \
+            -t sd-info-release . 2>&1 | tee build.log
+          container=$(docker create sd-info-release)
+          trap 'docker rm "$container" >/dev/null' EXIT
+          mkdir -p out
+          docker cp "$container:/artifacts/gba-sd-card-info.gba" out/
+          test -s out/gba-sd-card-info.gba
+      - name: Upload release artifact
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: gba-sd-card-info-release
+          path: out/gba-sd-card-info.gba
+          if-no-files-found: error
+      - name: Attach ROM to published release
+        if: github.event_name == 'release'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: |
+          gh release upload "$RELEASE_TAG" out/gba-sd-card-info.gba --clobber

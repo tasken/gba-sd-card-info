@@ -1,0 +1,17 @@
+*
+!Dockerfile
+!docker-compose.yml
+!docker-build.sh
+!.dockerignore
+!Makefile
+!gba.ld
+!README.md
+!LICENSE
+!THIRD_PARTY.md
+!src/
+!src/**
+!tests/
+!tests/**
+!tools/
+!tools/**
+**/__pycache__/
