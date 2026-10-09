@@ -139,7 +139,7 @@ void ui_splash(void)
     for (unsigned i = 0; i < 240 * 160 / 2; ++i)
         draw_buffer[i] = 0;
     text(18, 23, "GBA SD Card Info");
-    text(18, 47, "by Tasken");
+    text(18, 47, "By Tasken");
     const char *release = BUILD_TAG[0] ? BUILD_TAG : "Development build";
     char tag[24];
     unsigned i = 0;
